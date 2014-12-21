@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<style>
+			canvas {
+				border:1px dotted blue;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas width="800" height="800"></canvas>
+		<script>
+
+			var context = document.getElementsByTagName('canvas')[0].getContext('2d');
+			
+			context.lineWidth = 10;
+			context.strokeStyle = '#ff0000';
+			context.moveTo(10,10);
+			context.lineTo(100,10);
+			context.lineTo(100,100);
+			context.lineTo(10 , 100);
+			context.lineTo(10,10);
+			context.stroke();
+
+			//使用beginPath和closePath解决
+			context.lineWidth = 10;
+			context.strokeStyle = '#ff0000';
+			context.beginPath();
+			context.moveTo(10,150);
+			context.lineTo(100,150);
+			context.lineTo(100,240);
+			context.lineTo(10 , 240);
+			context.lineTo(10,150);
+			context.closePath();
+			context.stroke();
+
+			//使用lineCap = 'square'
+			context.lineWidth = 10;
+			context.strokeStyle = '#ff0000';
+			context.lineCap = 'square';
+			context.moveTo(10,290);
+			context.lineTo(100,290);
+			context.lineTo(100,380);
+			context.lineTo(10 , 380);
+			context.lineTo(10,290);
+			context.stroke();
+			
+
+
+		</script>
+	</body>
+</html>

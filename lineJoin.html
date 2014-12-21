@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<style>
+			canvas {
+				border:1px dotted blue;
+			}
+		</style>
+	</head>
+	<body>
+
+		<canvas width="800" height="200" id="canvas1"></canvas>
+		<canvas width="800" height="200" id="canvas2"></canvas>
+		<canvas width="800" height="200" id="canvas3"></canvas>
+		<script>
+			function drawRect(canvasId , lineJoin) {
+				var context = document.getElementById(canvasId).getContext('2d');
+				context.lineWidth = 10;
+				context.lineJoin = lineJoin;
+				context.strokeStyle = '#ff0000';
+				context.beginPath();
+				context.moveTo(10,10);
+				context.lineTo(100,100);
+				context.lineTo(200,10);
+				context.closePath();
+				context.stroke();
+				context.font = '18px Arial';
+				context.fillText('lineJoin的值为:' + lineJoin,250,100);
+			}
+
+			drawRect('canvas1' , 'miter');
+			drawRect('canvas2' , 'bevel');
+			drawRect('canvas3' , 'round');
+			
+			
+			
+			
+
+
+		</script>
+	</body>
+</html>

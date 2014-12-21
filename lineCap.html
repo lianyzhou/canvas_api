@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<style>
+			canvas {
+				border:1px dotted blue;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas width="800" height="200" id="canvas1"></canvas>
+		<canvas width="800" height="200" id="canvas2"></canvas>
+		<canvas width="800" height="200" id="canvas3"></canvas>
+		<script>
+			function drawRect(canvasId , lineCap) {
+				var context = document.getElementById(canvasId).getContext('2d');
+				context.lineWidth = 10;
+				context.strokeStyle = '#ff0000';
+				context.lineCap = lineCap;
+				context.moveTo(10,10);
+				context.lineTo(100,10);
+				context.lineTo(100,100);
+				context.lineTo(10 , 100);
+				context.lineTo(10,10);
+				context.stroke();
+				context.lineWidth = 1;
+				context.font = '18px Arial';
+				context.fillText('lineCap的值为:' + lineCap , 150 , 100);
+			}
+
+			drawRect('canvas1' , 'butt');
+			drawRect('canvas2' , 'round');
+			drawRect('canvas3' , 'square');
+			
+			
+			
+			
+
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<style>
+			canvas {
+				border:1px dotted blue;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas width="800" height="800"></canvas>
+		<script>
+			var context = document.getElementsByTagName('canvas')[0].getContext('2d');
+			
+			context.lineWidth = 10;
+			context.strokeStyle = '#ff0000';
+			context.lineJoin = 'miter';
+			context.beginPath();
+			context.moveTo(100,100);
+			context.lineTo(400,122);
+			context.lineTo(130,135);
+			context.closePath();
+
+			context.stroke();
+
+			context.miterLimit = 20;
+			context.beginPath();
+			context.moveTo(100,300);
+			context.lineTo(400,322);
+			context.lineTo(130,335);
+			context.closePath();
+			
+			context.stroke();
+			
+			
+		</script>
+	</body>
+</html>

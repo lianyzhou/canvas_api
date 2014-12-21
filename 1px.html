@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<style>
+			html,body {
+				overflow:hidden;
+				height:100%;
+			}
+			canvas {
+				border:1px dotted blue;
+				float:left;
+			}
+			#toolkit {
+				padding:0 0 0 20px;
+				float:left;
+				width : 400px;
+				height:100%;
+			}
+			#result {
+				margin: 20px 0 0 0;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas width="600" height="600"></canvas>
+		<div id="toolkit">
+			<div>
+			横线:<input type="checkbox" name="lineType" value="horizontal" checked="checked"/>
+			竖线:<input type="checkbox" name="lineType" value="vertical" />
+			</div>
+			<br />
+			线宽:<input type="range" id="lineWidth" value="1"/><span>1</span>
+			
+			<div>
+			<br />
+				处理横线奇数线条问题:<input type="checkbox" id="horizontalodd" name="halfpoint" checked="checked" /><br />
+				处理竖线奇数线条问题:<input type="checkbox" id="verticalodd" name="halfpoint"/><br />
+			</div>
+
+			<div id="result">
+				
+			</div>
+		</div>
+
+		<script src="http://s0.qhimg.com/lib/jquery/183.js"></script>
+		<script>
+
+			var context = document.getElementsByTagName('canvas')[0].getContext('2d');
+			context.strokeStyle = '#000';
+			
+			function drawLine(x1,y1,x2,y2,lineWidth) {
+				context.lineWidth = lineWidth || 1;
+				context.beginPath();
+				context.moveTo(x1,y1);
+				context.lineTo(x2,y2);
+				context.closePath();
+				context.stroke();
+			}
+			
+			var startPoint = null;
+			var endPoint = null;
+
+			$('canvas').mousedown(function(e) {
+				
+				var xPos = Math.floor(e.pageX - $(this).offset().left);
+				var yPos = Math.floor(e.pageY - $(this).offset().top);
+
+				if(!startPoint) {
+					startPoint = {
+						x : xPos,
+						y : yPos
+					};
+				} else if(!endPoint) {
+
+					endPoint = {
+						x : xPos,
+						y : yPos
+					};
+					
+					var hwidth;
+					var vheight;
+
+					var val = $('[name="lineType"]:checked').val();
+					if(val === 'horizontal') {
+						endPoint.y = startPoint.y;
+						hwidth = Math.abs(endPoint.x - startPoint.x);
+					} else if(val === 'vertical') {
+						endPoint.x = startPoint.x;
+						vheight = Math.abs(endPoint.y - startPoint.y);
+					}
+
+					var width = $('#lineWidth').val();
+
+					if($('#horizontalodd').attr('checked')) {
+						startPoint.y += .5;
+						endPoint.y += .5;
+					} else if($('#verticalodd').attr('checked')) {
+						startPoint.x += .5;
+						endPoint.x += .5;
+					}
+
+					drawLine(startPoint.x , startPoint.y , endPoint.x , endPoint.y , width);
+
+					$('#result').append('开始点:' + startPoint.x + ',' + startPoint.y + ', 结束点:' + endPoint.x + ',' + endPoint.y );
+					$('#result').append((hwidth ? '线长' : '线高') + (hwidth || vheight) + '<br />');
+
+					startPoint = undefined;
+					endPoint = undefined;
+
+
+				} 
+
+
+
+
+			});
+
+
+
+			$('[name="lineType"]').change(function() {
+				var choosen = $(this).attr('checked');
+				if(choosen) {
+					$(this).siblings().removeAttr('checked');
+				}
+			});
+
+			$('[name="lineType"]').change(function() {
+				var choosen = $(this).attr('checked');
+				if(choosen) {
+					$(this).siblings().removeAttr('checked');
+				}
+			});
+
+			$('[name="halfpoint"]').change(function() {
+				var choosen = $(this).attr('checked');
+				if(choosen) {
+					$(this).siblings().removeAttr('checked');
+				}
+			});
+
+			$('#lineWidth').change(function() {
+				var val = $(this).val();
+				$(this).next().html(val);
+			});
+
+		</script>
+	</body>
+</html>
